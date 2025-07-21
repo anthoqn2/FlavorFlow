@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlavorFlow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Basic navbar styling */
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            color: white;
+        }
+        .container {
+            padding: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'main' %}">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="container">
+        <h1>Welcome to FlavorFlow</h1>
+        <h2>Your hub for culinary inspiration</h2>
+        <p>Explore, create, and share your favorite recipes!</p>
+    </div>
+</body>
+</html>
