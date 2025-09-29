@@ -12,7 +12,7 @@ from .models import Ingredient, Amount
 class AmountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Amount
-        fields = ['id','value','measurement_type']
+        fields = ['value','measurement_type']
 
 class IngredientSerializer(serializers.ModelSerializer):
     amount = AmountSerializer()
@@ -20,4 +20,10 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient 
-        fields = ['id','name','amount','category','category_display']
+        fields = ['name','amount','category','category_display']
+    
+    def create(self, validated_data):
+        amount_data = validated_data.pop('amount')
+        amt = Amount(**amount_data)
+        ingredient = Ingredient.objects.using('mongo').create(amount=amt, **validated_data)
+        return ingredient

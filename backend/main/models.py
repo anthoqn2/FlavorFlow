@@ -1,37 +1,45 @@
 from django.db import models
 
-# Create your models here.
-
 class Amount(models.Model):
-    id = models.ObjectIdField(primary_key=True)
+    UNIT_CHOICES = (
+    ('grams', 'grams'),
+    ('cups', 'cups'),
+    ('pounds', 'pounds'),
+    ('ounces', 'ounces'),
+    ('teaspoons', 'teaspoons'),
+    ('tablespoons', 'tablespoons'),
+    ('quarts', 'quarts'),
+    ('pints', 'pints'),
+    ('gallons', 'gallons'),
+)
+
     value = models.FloatField()
-    unit = models.CharField(max_length=50) # grams, cups
+    unit = models.CharField(max_length=50,  choices = UNIT_CHOICES)
+
 
     class Meta:
         abstract = True
 
-class Ingredient(models.Model):
+class Ingredient(Amount):
     CATEGORY_CHOICES = [
-    ('vegetable', 'Vegetable'),
-    ('fruit', 'Fruit'),
-    ('meat', 'Meat'),
-    ('dairy', 'Dairy'),
-    ('grain', 'Grain'),
-    ('spice', 'Spice'),
-    ('herb', 'Herb'),
-    ('seafood', 'Seafood'),
-    ('nut', 'Nut'),
-    ('legume', 'Legume'),
-    ('oil', 'Oil'),
-    ('sweetener', 'Sweetener'),
-    ('beverage', 'Beverage'),
-    ('other', 'Other'),
+        ('vegetable', 'Vegetable'),
+        ('fruit', 'Fruit'),
+        ('meat', 'Meat'),
+        ('dairy', 'Dairy'),
+        ('grain', 'Grain'),
+        ('spice', 'Spice'),
+        ('herb', 'Herb'),
+        ('seafood', 'Seafood'),
+        ('nut', 'Nut'),
+        ('legume', 'Legume'),
+        ('oil', 'Oil'),
+        ('sweetener', 'Sweetener'),
+        ('beverage', 'Beverage'),
+        ('other', 'Other'),
     ]
     
-    id = models.ObjectIdField(primary_key=True)
     name = models.CharField(max_length=50)
-    category = models.CharField(max_length=50,choices = CATEGORY_CHOICES)
-    amount = models.EmbeddedField(model_container=Amount)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
 
     def __str__(self):
-        return f"{self.name} {self.amount.value} {self.amount.unit}"
+        return f"{self.name} {self.value} {self.unit}"

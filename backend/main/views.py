@@ -22,13 +22,12 @@ def add_ingredient(request):
     print(f"adding ingredient {request.data}")
     serializer = IngredientSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()  # saves directly to Django DB
+        serializer.save(using='mongo')  # ← explicitly use Mongo
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['GET'])
 def get_data(request):
-    ingredients = Ingredient.objects.all()
+    ingredients = Ingredient.objects.using('mongo').all()  # ← explicitly query Mongo
     serializer = IngredientSerializer(ingredients, many=True)
     return Response(serializer.data)

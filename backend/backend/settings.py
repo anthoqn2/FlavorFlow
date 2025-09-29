@@ -79,17 +79,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'flavorflow',
-        'CLIENT': {
-            'host': 'mongodb://localhost:27017',
-            'username': '',
-            'password': '',
-            'authSource': 'admin',
-        }
+    'default': {  # keep for Django internals
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'flavorflowdb',
+        'USER': 'myuser',
+        'PASSWORD': "mypassword",
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
