@@ -7,5 +7,4 @@ urlpatterns = [
     path('home', views.home, name='main'),
     path('data', views.get_data, name='get_data'),
     path('add', views.add_ingredient, name='add_ingredient'),
-    path('data', views.get_data, name='get_data'),
 ]
